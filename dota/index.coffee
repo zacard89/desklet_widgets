@@ -33,18 +33,22 @@ command: ->
     throw new Error("OpenDota HTTP #{res.status}") unless res.ok
     res.json()
   @heroes ?= await api('constants/heroes')
-  [player, total, week, matches] = await Promise.all([
+  # OpenDota rebuilds a player's aggregate stats (wl, totals) only when asked; recentMatches is always current.
+  # Ask for a rebuild at most once a day so "Łącznie" catches up; the response is not needed.
+  if Date.now() - (@historyRefreshedAt ? 0) > 24 * 3600 * 1000
+    @historyRefreshedAt = Date.now()
+    fetch("https://api.opendota.com/api/players/#{account}/refresh", { method: 'POST' }).catch((e) -> dlog("OpenDota refresh: #{e}"))
+  [player, total, matches] = await Promise.all([
     api("players/#{account}")
     api("players/#{account}/wl")
-    api("players/#{account}/wl?date=7")
     api("players/#{account}/recentMatches")
   ])
-  @last = { player, total, week, matches }
+  @last = { player, total, matches }
 
 render: (data, error) ->
   data = if error then @last else data
   return "<div class='title'>Dota 2</div><div class='err'>#{esc error}</div>" unless data
-  { player, total, week, matches } = data
+  { player, total, matches } = data
   heroes = @heroes
 
   won = (m) -> (m.player_slot < 128) == m.radiant_win
@@ -76,6 +80,11 @@ render: (data, error) ->
   today = matches.filter((m) -> m.start_time >= midnight)
   todayWins = today.filter(won).length
 
+  weekAgo = Date.now() / 1000 - 7 * 86400
+  week = matches.filter((m) -> m.start_time >= weekAgo)
+  weekWins = week.filter(won).length
+  weekFull = week.length == matches.length and matches.length >= 20
+
   recentWins = matches.filter(won).length
   streak = 0
   streak += 1 while streak < matches.length and won(matches[streak]) == won(matches[0])
@@ -96,7 +105,7 @@ render: (data, error) ->
 
   rows = [
     ['Dziś', "#{games(today.length)} · #{pct(todayWins, today.length)}"]
-    ['7 dni', "#{games(week.win + week.lose)} · #{pct(week.win, week.win + week.lose)}"]
+    ['7 dni', "#{if weekFull then '≥' else ''}#{games(week.length)} · #{pct(weekWins, week.length)}"]
     ["Ostatnie #{matches.length}", "#{pct(recentWins, matches.length)} · #{streakHtml}"]
     ['Najczęściej', favHtml]
     ['Łącznie', "#{total.win} W · #{total.lose} L"]

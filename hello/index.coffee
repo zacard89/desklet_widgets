@@ -4,7 +4,7 @@ options:
   name:
     label: 'Imię'
     type: 'text'
-    default: 'zacard'
+    default: ''
     placeholder: 'Jak masz na imię?'
     help: 'Pokazywane w powitaniu.'
 
@@ -15,7 +15,7 @@ update: (_, el) ->
   hour = now.getHours()
   greet = if hour < 12 then 'Dzień dobry' else if hour < 18 then 'Cześć' else 'Dobry wieczór'
   el.innerHTML = """
-    <div class="greet">#{greet}, #{esc @name}</div>
+    <div class="greet">#{greet}#{if @name then ", #{esc @name}" else ''}</div>
     <div class="time">#{now.toLocaleTimeString('pl-PL')}</div>
   """
 

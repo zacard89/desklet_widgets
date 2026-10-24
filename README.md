@@ -9,6 +9,7 @@ Katalog widgetów dla [Desklet](https://github.com/zacard89/Desklet). Desklet po
 |---|---|---|---|
 | <img src="dota/icon.png" width="48" alt=""> | [`dota`](dota/) | Dota 2: 8 ostatnich meczów z bohaterami (wersje arkana/persona, Invoker jako Kid), ostatni mecz z KDA, bilans dziś / 7 dni / ostatnie 20 / łącznie, seria i najczęściej grany bohater. Dane z OpenDota, bez uruchamiania procesów. | **Konto Dota** – ID OpenDota, SteamID64 albo link do profilu Steam / OpenDota; **Odświeżanie** – 5, 10 lub 30 min |
 | <img src="hello/icon.png" width="48" alt=""> | [`hello`](hello/) | Widget testowy: powitanie zależne od pory dnia i zegar z sekundami. Przykład pola konfiguracji. | **Imię** – pokazywane w powitaniu |
+| <img src="nowplaying/icon.png" width="48" alt=""> | [`nowplaying`](nowplaying/) | Okładka utworu z Apple Music kręcąca się jak płyta, z tytułem, wykonawcą i paskiem postępu; znika, gdy nic nie gra. Bez przycisków. Wymaga Desklet z obsługą Apple Music (`nowPlaying()`) i jednorazowej zgody macOS na sterowanie Muzyką. | brak |
 
 ## Format
 

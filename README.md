@@ -11,6 +11,7 @@ Katalog widgetów dla [Desklet](https://github.com/zacard89/Desklet). Desklet po
 | <img src="hello/icon.png" width="48" alt=""> | [`hello`](hello/) | Widget testowy: powitanie zależne od pory dnia i zegar z sekundami. Przykład pola konfiguracji. | **Imię** – pokazywane w powitaniu |
 | <img src="nowplaying/icon.png" width="48" alt=""> | [`nowplaying`](nowplaying/) | Okładka utworu z Apple Music kręcąca się jak płyta, z tytułem, wykonawcą i paskiem postępu; znika, gdy nic nie gra. Bez przycisków. Wymaga Desklet z obsługą Apple Music (`nowPlaying()`) i jednorazowej zgody macOS na sterowanie Muzyką. | brak |
 | <img src="network/icon.png" width="48" alt=""> | [`network`](network/) | Aktywne interfejsy sieciowe z nazwą (Wi-Fi, Ethernet, VPN z nazwą połączenia, mostki maszyn wirtualnych), adresem IPv4 z maską i globalnym IPv6; kropką oznaczony interfejs z trasą domyślną. Pod spodem publiczny IPv4/IPv6 z ipify (co 5 min). Odczytuje `ifconfig`, `networksetup`, `route` i `scutil` (tylko odczyt). | **Odświeżanie** – 30 s, 1 min lub 5 min |
+| <img src="equalizer/icon.png" width="48" alt=""> | [`equalizer`](equalizer/) | Prawdziwe widmo dźwięku systemowego (Apple Music, Spotify, przeglądarka…) jako słupki z opadającymi szczytami; znika po 2 s ciszy. Wymaga Desklet z `spectrum()` i zgody macOS „Nagrywanie ekranu i dźwięku systemowego” (bez niej widget pokazuje, gdzie ją włączyć). | **Słupki** – 16, 24 lub 32; **Kolory** – fiolet, zieleń, ogień, biały |
 
 ## Format
 
